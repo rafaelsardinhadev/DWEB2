@@ -2,17 +2,12 @@ package Java;
 
 public class Cachorro extends Pet {
 
-    private String raca;
-    private String nome;
-
-    public Cachorro(String raca, String nome) {
-        super(raca, nome);
-        this.raca = raca;
-        this.nome = nome;
+    public Cachorro(String nome, String raca) {
+        super(nome, raca);
     }
 
-    protected String latir() {
-        return "au au";
+    @Override
+    public String getSom() {
+        return "Au au";
     }
-
 }

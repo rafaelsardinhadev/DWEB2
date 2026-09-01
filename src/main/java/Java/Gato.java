@@ -1,18 +1,13 @@
 package Java;
 
-public class Gato extends Pet{
+public class Gato extends Pet {
 
-    private String raca;
-    private String nome;
-
-    public Gato(String raca, String nome) {
-        super(raca, nome);
-        this.raca = raca;
-        this.nome = nome;
+    public Gato(String nome, String raca) {
+        super(nome, raca);
     }
 
-    protected String latir() {
-        return "miau";
+    @Override
+    public String getSom() {
+        return "Miau";
     }
-
 }

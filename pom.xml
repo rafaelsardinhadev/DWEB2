@@ -23,7 +23,21 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- JSTL (API + implementação) compatível com Jakarta EE 10 / Tomcat 10.1 -->
+        <!-- JSTL API compatível com Jakarta EE 10 / Tomcat 10.1 -->
+        <dependency>
+            <groupId>jakarta.servlet.jsp.jstl</groupId>
+            <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
+            <version>3.0.0</version>
+            <exclusions>
+                <!-- o Tomcat ja fornece a EL; nao deve ir dentro do WAR -->
+                <exclusion>
+                    <groupId>jakarta.el</groupId>
+                    <artifactId>jakarta.el-api</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <!-- Implementação da JSTL (vai junto no WAR) -->
         <!-- Source: https://mvnrepository.com/artifact/org.glassfish.web/jakarta.servlet.jsp.jstl -->
         <dependency>
             <groupId>org.glassfish.web</groupId>

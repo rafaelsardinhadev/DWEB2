@@ -1,0 +1,116 @@
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    padding: 32px 16px;
+    background: #f4f6f8;
+    color: #1f2933;
+    font-family: system-ui, "Segoe UI", Arial, sans-serif;
+}
+
+.container {
+    max-width: 760px;
+    margin: 0 auto;
+}
+
+h1 {
+    font-size: 1.6rem;
+    margin-bottom: 20px;
+}
+
+h2 {
+    font-size: 1.2rem;
+    margin-top: 32px;
+}
+
+.cartao {
+    background: #fff;
+    border: 1px solid #dfe3e8;
+    border-radius: 8px;
+    padding: 20px;
+}
+
+.campo {
+    margin-bottom: 14px;
+}
+
+.campo label {
+    display: block;
+    font-size: .85rem;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.campo input,
+.campo select {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid #c4cdd5;
+    border-radius: 4px;
+    font-size: 1rem;
+    background: #fff;
+}
+
+.botao {
+    padding: 9px 18px;
+    border: 0;
+    border-radius: 4px;
+    background: #2f6feb;
+    color: #fff;
+    font-size: .95rem;
+    cursor: pointer;
+}
+
+.botao:hover { background: #2558bf; }
+
+.botao-excluir {
+    padding: 4px 10px;
+    border: 1px solid #d64545;
+    border-radius: 4px;
+    background: #fff;
+    color: #d64545;
+    font-size: .8rem;
+    cursor: pointer;
+}
+
+.botao-excluir:hover { background: #d64545; color: #fff; }
+
+.tabela {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    border: 1px solid #dfe3e8;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.tabela th,
+.tabela td {
+    padding: 9px 12px;
+    text-align: left;
+    border-bottom: 1px solid #eceff1;
+    font-size: .92rem;
+}
+
+.tabela th {
+    background: #eef2f6;
+    font-size: .8rem;
+    text-transform: uppercase;
+    letter-spacing: .03em;
+}
+
+.tabela tr:last-child td { border-bottom: 0; }
+
+.alerta {
+    padding: 10px 14px;
+    border-radius: 4px;
+    font-size: .9rem;
+}
+
+.erro    { background: #fdecea; color: #a62b2b; border: 1px solid #f5c2c0; }
+.sucesso { background: #e7f6ec; color: #1e6b3a; border: 1px solid #b7e2c4; }
+
+.vazio, .total {
+    color: #667380;
+    font-size: .9rem;
+}

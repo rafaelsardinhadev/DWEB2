@@ -1,79 +1,99 @@
 package Java;
 
+import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Controller do cadastro de animais.
+ * GET  /animais            -> mostra o formulario + a lista
+ * POST /animais            -> cadastra um animal
+ * POST /animais?acao=excluir&id=N -> remove um animal
+ */
 @WebServlet("/animais")
 public class AnimalServlet extends HttpServlet {
 
-    private static final List<Pet> animais = new ArrayList<>();
+    private static final String VIEW = "/WEB-INF/jsp/animais.jsp";
+
+    private final AnimalRepositorio repositorio = AnimalRepositorio.getInstancia();
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String tipo = request.getParameter("tipo");
-        String nome = request.getParameter("nome");
-        String raca = request.getParameter("raca");
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
-        Pet pet = switch (tipo) {
-            case "Gato" -> new Gato(raca, nome);
-            case "Coelho" -> new Coelho(raca, nome);
-            default -> new Cachorro(raca, nome);
-        };
-        animais.add(pet);
-
-        response.sendRedirect("animais");
+        List<Pet> animais = repositorio.listar();
+        request.setAttribute("animais", animais);
+        request.getRequestDispatcher(VIEW).forward(request, response);
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        response.setContentType("text/html; charset=UTF-8");
-        PrintWriter out = response.getWriter();
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
-        out.println("<!DOCTYPE html>");
-        out.println("<html lang='pt-br'>");
-        out.println("<head><meta charset='UTF-8'><title>Cadastro de Animais</title></head>");
-        out.println("<body>");
-        out.println("<h1>Cadastro de Animais</h1>");
+        request.setCharacterEncoding("UTF-8");
 
-        out.println("<form method='post' action='animais'>");
-        out.println("Nome: <input type='text' name='nome' required><br><br>");
-        out.println("Raça: <input type='text' name='raca' required><br><br>");
-        out.println("Tipo: ");
-        out.println("<select name='tipo'>");
-        out.println("<option value='Cachorro'>Cachorro</option>");
-        out.println("<option value='Gato'>Gato</option>");
-        out.println("<option value='Coelho'>Coelho</option>");
-        out.println("</select><br><br>");
-        out.println("<input type='submit' value='Cadastrar'>");
-        out.println("</form>");
-
-        out.println("<h2>Animais cadastrados</h2>");
-        out.println("<table border='1' cellpadding='5'>");
-        out.println("<tr><th>Nome</th><th>Raça</th><th>Tipo</th><th>Som</th></tr>");
-        for (Pet pet : animais) {
-            out.println("<tr>");
-            out.println("<td>" + escape(pet.getNome()) + "</td>");
-            out.println("<td>" + escape(pet.getRaca()) + "</td>");
-            out.println("<td>" + pet.getClass().getSimpleName() + "</td>");
-            out.println("<td>" + pet.latir() + "</td>");
-            out.println("</tr>");
+        if ("excluir".equals(request.getParameter("acao"))) {
+            excluir(request, response);
+            return;
         }
-        out.println("</table>");
 
-        out.println("</body></html>");
+        String nome = valorOuVazio(request.getParameter("nome"));
+        String raca = valorOuVazio(request.getParameter("raca"));
+        String tipo = valorOuVazio(request.getParameter("tipo"));
+
+        String erro = validar(nome, raca, tipo);
+        if (erro != null) {
+            request.setAttribute("erro", erro);
+            request.setAttribute("nome", nome);
+            request.setAttribute("raca", raca);
+            request.setAttribute("tipo", tipo);
+            request.setAttribute("animais", repositorio.listar());
+            request.getRequestDispatcher(VIEW).forward(request, response);
+            return;
+        }
+
+        repositorio.salvar(criarPet(tipo, nome, raca));
+
+        // Post/Redirect/Get: evita reenviar o formulario ao atualizar a pagina
+        response.sendRedirect(request.getContextPath() + "/animais?ok=1");
     }
 
-    private static String escape(String texto) {
-        return texto.replace("&", "&amp;")
-                .replace("<", "&lt;")
-                .replace(">", "&gt;")
-                .replace("\"", "&quot;");
+    private void excluir(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        try {
+            repositorio.remover(Integer.parseInt(request.getParameter("id")));
+        } catch (NumberFormatException ignorado) {
+            // id invalido: apenas volta para a listagem
+        }
+        response.sendRedirect(request.getContextPath() + "/animais");
+    }
+
+    private Pet criarPet(String tipo, String nome, String raca) {
+        return switch (tipo) {
+            case "Gato" -> new Gato(nome, raca);
+            case "Coelho" -> new Coelho(nome, raca);
+            default -> new Cachorro(nome, raca);
+        };
+    }
+
+    private String validar(String nome, String raca, String tipo) {
+        if (nome.isEmpty()) {
+            return "Informe o nome do animal.";
+        }
+        if (raca.isEmpty()) {
+            return "Informe a raça do animal.";
+        }
+        if (!tipo.equals("Cachorro") && !tipo.equals("Gato") && !tipo.equals("Coelho")) {
+            return "Selecione um tipo válido.";
+        }
+        return null;
+    }
+
+    private String valorOuVazio(String valor) {
+        return valor == null ? "" : valor.trim();
     }
 }
