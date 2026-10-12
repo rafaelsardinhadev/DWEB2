@@ -1,0 +1,44 @@
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<c:set var="ctx" value="${pageContext.request.contextPath}"/>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title><c:out value="${titulo}"/> - Portal de Notícias</title>
+    <link rel="stylesheet" href="${ctx}/css/portal.css">
+</head>
+<body>
+
+<header class="topo">
+    <div class="topo-conteudo">
+        <a class="marca" href="${ctx}/noticias">Portal de Notícias</a>
+        <nav>
+            <a href="${ctx}/noticias">Notícias</a>
+            <c:if test="${not empty usuarioLogado}">
+                <a href="${ctx}/app/painel">Painel</a>
+                <a href="${ctx}/app/noticias">Minhas notícias</a>
+                <a href="${ctx}/app/contas">Contas</a>
+                <c:if test="${usuarioLogado.admin}">
+                    <a href="${ctx}/app/usuarios">Usuários</a>
+                </c:if>
+            </c:if>
+        </nav>
+        <div class="sessao">
+            <c:choose>
+                <c:when test="${not empty usuarioLogado}">
+                    <span><c:out value="${usuarioLogado.nome}"/> &middot; <c:out value="${usuarioLogado.empresaNome}"/></span>
+                    <form method="post" action="${ctx}/app/logout">
+                        <input type="hidden" name="csrf" value="<c:out value='${csrf}'/>">
+                        <button type="submit" class="botao-sair">Sair</button>
+                    </form>
+                </c:when>
+                <c:otherwise>
+                    <a class="botao-sair" style="text-decoration:none" href="${ctx}/login">Entrar</a>
+                </c:otherwise>
+            </c:choose>
+        </div>
+    </div>
+</header>
+
+<main class="container ${larguraEstreita ? 'estreito' : ''}">
