@@ -1,0 +1,3 @@
+[11:00:21.859] [publicador] fim: 3 mensagens publicadas
+[11:00:22.097] [assinante-9] conectado | destino=/topic/lab.rel.nd | tipo=TOPICO-NAO-DURAVEL | vai ler 1 mensagem(ns)
+[11:00:27.133] [assinante-9] tempo esgotado: nenhuma mensagem recebida

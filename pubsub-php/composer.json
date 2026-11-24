@@ -1,0 +1,12 @@
+{
+    "name": "lab/pubsub-php",
+    "description": "Laboratorio PubSub com ActiveMQ e protocolo STOMP em PHP",
+    "type": "project",
+    "require": {
+        "php": ">=8.1",
+        "stomp-php/stomp-php": "^5.1"
+    },
+    "config": {
+        "optimize-autoloader": true
+    }
+}

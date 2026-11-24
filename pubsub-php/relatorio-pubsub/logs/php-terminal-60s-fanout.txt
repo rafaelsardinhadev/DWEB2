@@ -1,0 +1,11 @@
+[10:58:35.688] [publicador] ENVIADA -> Mensagem 1/5 gerada em 2026-11-24T10:58:35
+[10:58:35.699] [assinante-2] RECEBIDA <- Mensagem 1/5 gerada em 2026-11-24T10:58:35 [PERSISTENTE]
+[10:58:35.699] [assinante-1] RECEBIDA <- Mensagem 1/5 gerada em 2026-11-24T10:58:35 [PERSISTENTE]
+[10:58:35.699] [assinante-4] RECEBIDA <- Mensagem 1/5 gerada em 2026-11-24T10:58:35 [PERSISTENTE]
+[10:58:35.699] [assinante-3] RECEBIDA <- Mensagem 1/5 gerada em 2026-11-24T10:58:35 [PERSISTENTE]
+[10:58:35.699] [assinante-5] RECEBIDA <- Mensagem 1/5 gerada em 2026-11-24T10:58:35 [PERSISTENTE]
+[10:59:36.162] [publicador] ENVIADA -> Mensagem 2/5 gerada em 2026-11-24T10:59:36
+[11:00:36.623] [publicador] ENVIADA -> Mensagem 3/5 gerada em 2026-11-24T11:00:36
+[11:01:37.170] [publicador] ENVIADA -> Mensagem 4/5 gerada em 2026-11-24T11:01:37
+[11:02:37.707] [publicador] ENVIADA -> Mensagem 5/5 gerada em 2026-11-24T11:02:37
+[11:02:37.715] [publicador] fim: 5 mensagens publicadas

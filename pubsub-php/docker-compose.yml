@@ -1,0 +1,12 @@
+services:
+  activemq:
+    image: apache/activemq-classic:6.2.0
+    container_name: activemq-php
+    ports:
+      - "61613:61613"
+      - "8162:8161"     
+    volumes:
+      - activemq-php-data:/opt/apache-activemq/data
+
+volumes:
+  activemq-php-data:

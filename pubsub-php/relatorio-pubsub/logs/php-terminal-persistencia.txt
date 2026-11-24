@@ -1,0 +1,11 @@
+[11:02:56.014] [publicador] conectado em tcp://localhost:61613 | destino=/queue/lab.rel.persist | entrega=PERSISTENTE | 3 mensagens a cada 1 s
+[11:02:58.261] [publicador] fim: 3 mensagens publicadas
+[11:02:58.512] [publicador] conectado em tcp://localhost:61613 | destino=/queue/lab.rel.volatil | entrega=NAO-PERSISTENTE | 3 mensagens a cada 1 s
+[11:03:00.600] [publicador] fim: 3 mensagens publicadas
+--- docker restart activemq-php ---
+[11:03:22.096] [assinante-1] conectado | destino=/queue/lab.rel.persist | tipo=FILA | vai ler 3 mensagem(ns)
+[11:03:22.144] [assinante-1] RECEBIDA <- Mensagem 1/3 gerada em 2026-11-24T11:02:56 [PERSISTENTE]
+[11:03:22.160] [assinante-1] RECEBIDA <- Mensagem 2/3 gerada em 2026-11-24T11:02:57 [PERSISTENTE]
+[11:03:22.176] [assinante-1] RECEBIDA <- Mensagem 3/3 gerada em 2026-11-24T11:02:58 [PERSISTENTE]
+[11:03:22.460] [assinante-2] conectado | destino=/queue/lab.rel.volatil | tipo=FILA | vai ler 3 mensagem(ns)
+[11:03:27.497] [assinante-2] tempo esgotado: nenhuma mensagem recebida
